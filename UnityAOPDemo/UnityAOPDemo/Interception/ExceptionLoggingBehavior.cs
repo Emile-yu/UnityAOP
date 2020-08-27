@@ -8,7 +8,7 @@ using Unity.Interception.PolicyInjection.Pipeline;
 
 namespace UnityAOPDemo.Interception
 {
-    public class LogBeforeBehavior : IInterceptionBehavior
+    public class ExceptionLoggingBehavior : IInterceptionBehavior
     {
         public bool WillExecute
         {
@@ -22,16 +22,20 @@ namespace UnityAOPDemo.Interception
 
         public IMethodReturn Invoke(IMethodInvocation input, GetNextInterceptionBehaviorDelegate getNext)
         {
-            Console.WriteLine("LogBeforeBehavior");
+            IMethodReturn methodeReturn = getNext().Invoke(input, getNext);
 
-            foreach (var item in input.Inputs)
+             Console.WriteLine("ExecptionLoggingBehavior");
+
+            if (methodeReturn.Exception == null)
             {
-                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(item));
+                Console.WriteLine("Pas de exception");
+            }
+            else
+            {
+                Console.WriteLine("Il y a des exception");
             }
 
-            Console.WriteLine("LogBeforeBehavior");
-
-            return getNext().Invoke(input, getNext);
+            return methodeReturn;
         }
     }
 }

@@ -5,10 +5,11 @@ using System.Text;
 using System.Threading.Tasks;
 using Unity.Interception.InterceptionBehaviors;
 using Unity.Interception.PolicyInjection.Pipeline;
+using UnityAOPDemo.Model;
 
 namespace UnityAOPDemo.Interception
 {
-    public class LogBeforeBehavior : IInterceptionBehavior
+    public class ParameterCheckBehavior : IInterceptionBehavior
     {
         public bool WillExecute
         {
@@ -22,16 +23,19 @@ namespace UnityAOPDemo.Interception
 
         public IMethodReturn Invoke(IMethodInvocation input, GetNextInterceptionBehaviorDelegate getNext)
         {
-            Console.WriteLine("LogBeforeBehavior");
 
-            foreach (var item in input.Inputs)
+            Console.WriteLine("ParameterCheckBehavior");
+            User user = input.Inputs[0] as User;
+
+            if (user.MotPass.Length < 10)
             {
-                Console.WriteLine(Newtonsoft.Json.JsonConvert.SerializeObject(item));
+                return input.CreateExceptionMethodReturn(new Exception("MotPass est inférieur au 10 chiffres"));
             }
+            else
+            {
 
-            Console.WriteLine("LogBeforeBehavior");
-
-            return getNext().Invoke(input, getNext);
+                return getNext().Invoke(input, getNext);
+            }
         }
     }
 }

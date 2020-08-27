@@ -12,9 +12,5 @@ namespace UnityAOPDemo.Model
 
         public String MotPass { get; set; }
 
-        public void GetUser()
-        {
-            Console.WriteLine("GetUser");
-        }
     }
 }

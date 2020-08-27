@@ -8,10 +8,17 @@ namespace UnityAOPDemo.Model
 {
     public class UserProcessor : IUserProcessor
     {
+        public User GetUser(User user)
+        {
+            return user;
+        }
+
         public void RegUser(User user)
         {
             Console.WriteLine("Name : {0}, PassWord : {1}", user.Name, user.MotPass);
         }
+
+
 
     }
 }

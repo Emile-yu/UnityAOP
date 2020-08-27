@@ -69,7 +69,11 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interception\CachingBehavior.cs" />
+    <Compile Include="Interception\ExceptionLoggingBehavior.cs" />
+    <Compile Include="Interception\LogAfterBehavior.cs" />
     <Compile Include="Interception\LogBeforeBehavior.cs" />
+    <Compile Include="Interception\ParameterCheckBehavior.cs" />
     <Compile Include="Model\IUserProcessor.cs" />
     <Compile Include="Model\User.cs" />
     <Compile Include="Model\UserProcessor.cs" />
@@ -79,7 +83,6 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
-    <None Include="Unity.Config" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -9,5 +9,7 @@ namespace UnityAOPDemo.Model
     public interface IUserProcessor
     {
         void RegUser(User user);
+
+        User GetUser(User user);
     }
 }

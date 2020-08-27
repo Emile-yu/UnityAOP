@@ -15,24 +15,38 @@ namespace UnityAOPDemo
     {
         static void Main(string[] args)
         {
-            IUnityContainer container = new UnityContainer();
-            ExeConfigurationFileMap fileMap = new ExeConfigurationFileMap();
-            fileMap.ExeConfigFilename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "Config\\Unity.Config");
-            Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
-            UnityConfigurationSection configSection = (UnityConfigurationSection)configuration.GetSection(UnityConfigurationSection.SectionName);
-            configSection.Configure(container, "aopContainer");
-
-
-            User user = new User()
+            try
             {
-                Name = "Michael",
-                MotPass = "123456"
-            };
-            IUserProcessor processor = container.Resolve<IUserProcessor>();
-            processor.RegUser(user);
+                IUnityContainer container = new UnityContainer();
+                ExeConfigurationFileMap fileMap = new ExeConfigurationFileMap();
+                fileMap.ExeConfigFilename = Path.Combine(AppDomain.CurrentDomain.BaseDirectory + "Config\\Unity.Config");
+                Configuration configuration = ConfigurationManager.OpenMappedExeConfiguration(fileMap, ConfigurationUserLevel.None);
+                UnityConfigurationSection configSection = (UnityConfigurationSection)configuration.GetSection(UnityConfigurationSection.SectionName);
+                configSection.Configure(container, "aopContainer");
 
-            Console.ReadKey();
 
+                User user = new User()
+                {
+                    Name = "Michael",
+                    MotPass = "12345645646464"
+                };
+                IUserProcessor processor = container.Resolve<IUserProcessor>();
+                processor.RegUser(user);
+                Console.WriteLine("-------------------------------------------");
+                User user1 = processor.GetUser(user);
+                Console.WriteLine("-------------------------------------------");
+                User user2 = processor.GetUser(user);
+            }
+            catch (Exception e)
+            {
+
+                Console.WriteLine(e.Message);
+            }
+            finally
+            {
+                Console.ReadKey();
+
+            }
 
         }
     }
