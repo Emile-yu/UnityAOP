@@ -10,7 +10,7 @@ namespace UnityAOPDemo.Model
     {
         public User GetUser(User user)
         {
-            return user;
+            return null;
         }
 
         public void RegUser(User user)
